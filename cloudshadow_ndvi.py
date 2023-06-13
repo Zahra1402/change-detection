@@ -11,7 +11,7 @@ def cloudshadow(image1):
     ndvi = (B8 - B4) / (B8 + B4)
     # _____ creates ndsi image
     swir1   = image1[:, :,11]
-    green   = image1[:, :, 2]
+    green   = image1[:, :, 3]
     ndsi = (green - swir1) / (green + swir1)
 
     #Threshold the NDSI and NDVI to identify cloud and shadow pixels
