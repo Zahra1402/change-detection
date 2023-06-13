@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 
 def cloudshadow(image1):
     # _____ creates ndvi image
-    B4 = image1[:, :, 4]
-    B8 = image1[:, :, 8]
+    B4 = image1[:, :, 2]
+    B8 = image1[:, :, 6]
     ndvi = (B8 - B4) / (B8 + B4)
     # _____ creates ndsi image
     swir1   = image1[:, :,11]
