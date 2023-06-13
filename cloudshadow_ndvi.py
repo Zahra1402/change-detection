@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 
 def cloudshadow(image1):
     # _____ creates ndvi image
-    B4 = image1[:, :, 2]
-    B8 = image1[:, :, 6]
+    B4 = image1[:, :, 4]
+    B8 = image1[:, :, 8]
     ndvi = (B8 - B4) / (B8 + B4)
     # _____ creates ndsi image
     swir1   = image1[:, :,11]
@@ -16,7 +16,7 @@ def cloudshadow(image1):
 
     #Threshold the NDSI and NDVI to identify cloud and shadow pixels
     cloud_mask  = (ndsi < 0.95) & (ndvi <  0.3)
-    shadow_mask = (ndsi > 0.92) & (ndvi <  0.2)
+    shadow_mask = (ndsi > 0.92) & (ndvi <  0.1)
 
     #Combine the cloud and shadow masks
     mask = ~(cloud_mask | shadow_mask)
