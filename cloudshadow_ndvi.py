@@ -15,8 +15,8 @@ def cloudshadow(image1):
     ndsi = (green - swir1) / (green + swir1)
 
     #Threshold the NDSI and NDVI to identify cloud and shadow pixels
-    cloud_mask  = (ndsi < 0.2) & (ndvi <  0.3)
-    shadow_mask = (ndsi > 0.92) & (ndvi <  0.3)
+    cloud_mask  = (ndsi < 0.95) & (ndvi <  0.3)
+    shadow_mask = (ndsi > 0.92) & (ndvi <  0.2)
 
     #Combine the cloud and shadow masks
     mask = ~(cloud_mask | shadow_mask)
