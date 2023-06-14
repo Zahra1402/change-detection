@@ -13,8 +13,8 @@ def cloudshadow(image1):
     # _____ creates ndsi image
     ndsi = (b3 - b1) / (b3 + b1)
     #Threshold the NDSI and ratiob to identify cloud and shadow pixels
-    cloud_mask  = (ndsi>0.95) & (ratiob > 0.93)
-    shadow_mask = (ndsi>0.92) & (ratiob >  0.93)
+    cloud_mask  = (ndsi>0.95) & (ratiob > 0.92)
+    shadow_mask = (ndsi>0.92) & (ratiob >  0.92)
 
     #Combine the cloud and shadow masks
     mask = ~(cloud_mask | shadow_mask)
