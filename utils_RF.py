@@ -18,10 +18,12 @@ def randomforest(img1,img2):
     #_____________________________________________________________________________________
 
     # transform 
-    scaler = StandardScaler()
-    scaler.fit(image1)
-    image1=scaler.transform(image1)
-    image2=scaler.transform(image2)
+    scaler1 = StandardScaler()
+    scaler1.fit(image1)
+    scaler2 = StandardScaler()
+    scaler2.fit(image2)
+    image1=scaler1.transform(image1)
+    image2=scaler2.transform(image2)
     #_____________________________________________________________________________________
 
     # load model
