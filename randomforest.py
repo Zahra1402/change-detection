@@ -46,20 +46,22 @@ X_train = scaler.transform(X_train)
 prd=scaler.transform(X1)
 X_test = scaler.transform(X_test)
 #_____________________________________________________________________________
+#give more weight to the classes with less data.
+class_weights = {3: 10, 4: 1, 1: 10, 2: 10}
 
 rf_classifier = RandomForestClassifier(n_estimators=100,
-                                       random_state=42, class_weight='balanced')
+                                        random_state=42, class_weight = class_weights)
 #Train the classifier on the training data
 rf_classifier.fit(X_train, y_train)
 #_____________________________________________________________________________
 
 path_model=os.path.join(root,'RFclassifier.joblib')
 # save model
-#joblib.dump(rf_classifier,path_model)
+joblib.dump(rf_classifier,path_model)
 
 # load model
 
-rf_classifier=joblib.load(path_model)
+#rf_classifier=joblib.load(path_model)
 
 #_____________________________________________________________________________
 # predict test data for validation
