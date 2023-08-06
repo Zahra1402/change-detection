@@ -47,7 +47,8 @@ prd=scaler.transform(X1)
 X_test = scaler.transform(X_test)
 #_____________________________________________________________________________
 
-rf_classifier = RandomForestClassifier(n_estimators=100, random_state=42)
+rf_classifier = RandomForestClassifier(n_estimators=100,
+                                       random_state=42, class_weight='balanced')
 #Train the classifier on the training data
 rf_classifier.fit(X_train, y_train)
 #_____________________________________________________________________________
