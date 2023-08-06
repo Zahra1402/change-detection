@@ -8,27 +8,24 @@ from sklearn.preprocessing import StandardScaler
 
 #_____________________________________________________________________________________
 
-def randomforest(image1,image2):
-    # Assuming 'image1' and 'image2' are numpy arrays with shape (height, width, band)
+def randomforest(img1,img2):
+    # Assuming 'img1' and 'img2' are numpy arrays with shape (height, width, band)
 
-    # Slice the desired bands (10 to 12, inclusive) from each image
-    img1 = image1[:, :, 10:13]
-    img2 = image2[:, :, 10:13]
+
     # reshape array to vector (row, col,band)--->  (row*col,band)
-    image1 =img1.reshape(-1,3)
-    image2 =img2.reshape(-1,3)
+    image1 =img1.reshape(-1,13)
+    image2 =img2.reshape(-1,13)
     #_____________________________________________________________________________________
 
     # transform 
     scaler = StandardScaler()
+    scaler.fit(image1)
     image1=scaler.transform(image1)
     image2=scaler.transform(image2)
     #_____________________________________________________________________________________
-    root=os.getcwd()
-    path_model=os.path.join(root,'RFclassifier.joblib')
 
     # load model
-    rf_classifier=load(path_model)
+    rf_classifier=load('/home/zahra/Desktop/codes/change_detection/RFclassifier.joblib')
     #_____________________________________________________________________________________
     #predict labels1 , labels2
     prediction1=rf_classifier.predict(image1)
@@ -50,9 +47,6 @@ def randomforest(image1,image2):
         ((prediction1 == 2) & (prediction2 == 4)) |
         ((prediction1 == 4) & (prediction2 == 3)), 1, 0)
 
-
-
-    
     return change_mask
 
 
