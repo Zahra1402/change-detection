@@ -54,11 +54,11 @@ rf_classifier.fit(X_train, y_train)
 
 path_model=os.path.join(root,'RFclassifier.joblib')
 # save model
-joblib.dump(rf_classifier,path_model)
+#joblib.dump(rf_classifier,path_model)
 
 # load model
 
-#rf_classifier=joblib.load(path_model)
+rf_classifier=joblib.load(path_model)
 
 #_____________________________________________________________________________
 # predict test data for validation
@@ -77,11 +77,11 @@ predicted_labels=predicted_labels.T
 #_____________________________________________________________________________
 
 
-input_raster_path  = os.path.join(root,'image2.tif')
+
 output_raster_path = os.path.join(root,'predicted_labels.tif')
 
 # Read the source raster to get necessary information
-with rio.open(input_raster_path) as src:
+with rio.open(path_image1) as src:
     profile = src.profile
     data = src.read(1)  # Assuming there is only one band
 
