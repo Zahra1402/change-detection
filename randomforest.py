@@ -13,7 +13,7 @@ from sklearn.ensemble import RandomForestClassifier
 #_____________________________________________________________________________________
 
 root=os.getcwd()
-path_image1=os.path.join(root,'data','SVM','images','After_R56C31.tif')#after img
+path_image1=os.path.join(root,'data','SVM','images','After_R56C31_13_F.tif')#after img
 #path_file_image2=os.path.join(root,'data','SVM','images','image1.tif')#before img
 path_roi   =os.path.join(root,'data','SVM','labels','label.tif')
 # read image and labels
@@ -25,7 +25,7 @@ yr=y.read()
 Xt=Xr.T
 yt=yr.T
 # reshape array to vector (row, col,band)--->  (row*col,band)
-X1=Xt.reshape(-1,3)
+X1=Xt.reshape(-1,13)
 y1=yt.reshape(-1,1)
 # remove Nodata in labels
 X=X1[np.where(y1>0)[0]]
@@ -54,11 +54,11 @@ rf_classifier.fit(X_train, y_train)
 
 path_model=os.path.join(root,'RFclassifier.joblib')
 # save model
-#joblib.dump(rf_classifier,path_model)
+joblib.dump(rf_classifier,path_model)
 
 # load model
 
-rf_classifier=joblib.load(path_model)
+#rf_classifier=joblib.load(path_model)
 
 #_____________________________________________________________________________
 # predict test data for validation
@@ -76,7 +76,6 @@ predicted_labels=predicted_labels.T
 
 #_____________________________________________________________________________
 
-'''
 
 input_raster_path  = os.path.join(root,'image2.tif')
 output_raster_path = os.path.join(root,'predicted_labels.tif')
@@ -92,8 +91,7 @@ profile['count'] = 1  # Set the number of bands for the predicted labels (1 in t
 
 # Write the predicted labels to the GeoTIFF file
 with rio.open(output_raster_path, 'w', **profile) as dst:
-    dst.write(predicted_labelssave, 1)
+    dst.write(predicted_labels, 1)
 
 print("Predicted labels saved as a GeoTIFF file.")
 
-'''
