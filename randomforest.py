@@ -35,19 +35,19 @@ X=X[np.where(y!=5)[0]]
 y=y[y!=5]
 
 
+#transform 
+scaler = StandardScaler()
+X = scaler.fit_transform(X)
+prd=scaler.fit_transform(X1)
+
+
 # Split the data into training and testing set
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-#transform 
-scaler = StandardScaler()
-# fit only on training data
-scaler.fit(X_train)
-X_train = scaler.transform(X_train)
-prd=scaler.transform(X1)
-X_test = scaler.transform(X_test)
+
 #_____________________________________________________________________________
 #give more weight to the classes with less data.
-class_weights = {3: 10, 4: 1, 1: 10, 2: 10}
+class_weights = {3: 1000, 4: 1, 1: 10, 2: 10}
 
 rf_classifier = RandomForestClassifier(n_estimators=100,
                                         random_state=42, class_weight = class_weights)
@@ -69,7 +69,7 @@ predictions = rf_classifier.predict(X_test)
 
 # print classification report
 print(classification_report(y_test, predictions))
-
+'''
 #_____________________________________________________________________________
 # predict original image
 predicted_labels=rf_classifier.predict(prd)
@@ -98,3 +98,4 @@ with rio.open(output_raster_path, 'w', **profile) as dst:
 
 print("Predicted labels saved as a GeoTIFF file.")
 
+'''
