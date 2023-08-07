@@ -4,13 +4,16 @@ import numpy as np
 from joblib import load
 import os
 from sklearn.preprocessing import StandardScaler
-
+import matplotlib.pyplot  as plt
 
 #_____________________________________________________________________________________
 
 def randomforest(img1,img2):
     # Assuming 'img1' and 'img2' are numpy arrays with shape (height, width, band)
-
+    imgvis1=img1[:,:,10:13].astype(np.uint8)
+    imgvis2=img2[:,:,10:13].astype(np.uint8)
+    img1=img1.astype(np.float64)
+    img2=img2.astype(np.float64)
 
     # reshape array to vector (row, col,band)--->  (row*col,band)
     image1 =img1.reshape(-1,13)
@@ -18,12 +21,11 @@ def randomforest(img1,img2):
     #_____________________________________________________________________________________
 
     # transform 
-    scaler1 = StandardScaler()
-    scaler1.fit(image1)
-    scaler2 = StandardScaler()
-    scaler2.fit(image2)
-    image1=scaler1.transform(image1)
-    image2=scaler2.transform(image2)
+    scaler = StandardScaler()
+    
+ 
+    image1=scaler.fit_transform(image1)
+    image2=scaler.fit_transform(image2)
     #_____________________________________________________________________________________
 
     # load model
@@ -48,7 +50,32 @@ def randomforest(img1,img2):
         ((prediction1 == 2) & (prediction2 == 3)) |
         ((prediction1 == 2) & (prediction2 == 4)) |
         ((prediction1 == 4) & (prediction2 == 3)), 1, 0)
+     #____________________________________________________________________________________
+    plt.figure(figsize=(10, 10))
+    ax=plt.subplot(221)
+    plt.imshow(prediction1   , cmap='jet')
 
+    plt.title('classified image1')
+    plt.subplot(223, sharex=ax, sharey=ax)
+
+    plt.imshow(prediction2   , cmap='jet')
+
+    plt.title('classified image2')
+
+    plt.subplot(222, sharex=ax, sharey=ax)
+
+    plt.imshow(imgvis1   , cmap='jet')
+
+    plt.title(' image1')
+    plt.subplot(224, sharex=ax, sharey=ax)
+
+    plt.imshow(imgvis2   , cmap='jet')
+
+    plt.title(' image2')
+
+            # Add spacing between subplots
+    plt.subplots_adjust(wspace=0.4, hspace=0.4)
+    plt.show()
     return change_mask
 
 
